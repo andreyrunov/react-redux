@@ -28,7 +28,6 @@ function Home() {
 	function handleClick() {
 		axios(`https://api.thecatapi.com/v1/images/search?limit=3&page1&order=Desc`)
 		.then(response => {
-			console.log(response)
 			setList(response.data)
 		})
 	}
