@@ -26,15 +26,18 @@ function Home() {
 	const [list, setList] = useState([])
 
 	function handleClick() {
-		axios(`https://api.thecatapi.com/v1/images/search?limit=3&page1&order=Desc`)
-		.then(response => {
+		axios(`http://localhost:3001/cats`).then((response) => {
+			console.log(response.data)
 			setList(response.data)
 		})
 	}
 
 	return (
 		<div>
-			<button onClick={handleClick}	className='uk-button uk-button-secondary uk-button-large'>
+			<button
+				onClick={handleClick}
+				className='uk-button uk-button-secondary uk-button-large'
+			>
 				Get cats
 			</button>
 			<ul className='uk-list'>
