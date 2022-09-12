@@ -40,12 +40,11 @@ router
 app.get('/cats', async (req, res) => {
 	try {
 		const response = await axios(
-			`https://api.thecatapi.com/v1/images/search?limit=3&page1&order=Desc`
+			`https://api.thecatapi.com/v1/images/search?limit=3&page=1&order=Desc`
 		)
-		console.log(response)
-		const result = response.map((el) => ({ id: el.id, url: el.url }))
+		const result = response.data.map((el) => ({ id: el.id, url: el.url }))
 		list = [...result, ...list]
-		res.json(response)
+		res.json(response.data)
 	} catch (err) {
 		res.sendStatus(400)
 	}

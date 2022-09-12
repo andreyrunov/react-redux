@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './Home.css'
 
@@ -25,10 +25,18 @@ function Home() {
 	// ]
 	const [list, setList] = useState([])
 
+	useEffect(() => {
+		axios(`http://localhost:3001/api`).then((response) => {
+			setList(response.data)
+		})
+	}, [])
+
 	function handleClick() {
 		axios(`http://localhost:3001/cats`).then((response) => {
 			console.log(response.data)
-			setList(response.data)
+			setList((prev) => {
+				return [...response.data, prev]
+			})
 		})
 	}
 
@@ -47,7 +55,7 @@ function Home() {
 							<div className='foto'>
 								<img src={cat.url} alt={cat.id} />
 							</div>
-							<button class='uk-button uk-button-default'>💛</button>
+							<button className='uk-button uk-button-default'>💛</button>
 						</div>
 					</li>
 				))}
