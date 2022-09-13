@@ -1,42 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './Home.css'
+import { useSelector, useDispatch } from 'react-redux'
 
 function Home() {
-	// const list = [
-	// 	{
-	// 		id: '0XYvRd7oD',
-	// 		width: 1204,
-	// 		height: 1445,
-	// 		url: 'https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg',
-	// 	},
-	// 	{
-	// 		id: '0XYvRd7oD12',
-	// 		width: 1204,
-	// 		height: 1445,
-	// 		url: 'https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg',
-	// 	},
-	// 	{
-	// 		id: '0XYvRd7oD1212',
-	// 		width: 1204,
-	// 		height: 1445,
-	// 		url: 'https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg',
-	// 	},
-	// ]
-	const [list, setList] = useState([])
-
-	useEffect(() => {
-		axios(`http://localhost:3001/api`).then((response) => {
-			setList(response.data)
-		})
-	}, [])
+	const list = useSelector((state) => state.list)
+	const dispatch = useDispatch()
 
 	function handleClick() {
 		axios(`http://localhost:3001/cats`).then((response) => {
-			console.log(response.data)
-			setList((prev) => {
-				return [...response.data, prev]
+			dispatch({
+				type: 'ADD_CATS',
+				payload: response.data,
 			})
+
+			// console.log(response.data)
+			// setList((prev) => {
+			// 	return [...response.data, prev]
+			// })
 		})
 	}
 
