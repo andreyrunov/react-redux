@@ -6,15 +6,13 @@ import axios from 'axios'
 import Nav from './components/Nav/Nav'
 import Home from './components/Home/Home'
 import Profile from './components/Profile/Profile'
+import { initList } from './redux/actions/list.actions'
 
 function App() {
 	const dispatch = useDispatch()
 	useEffect(() => {
 		axios(`http://localhost:3001/api`).then((response) => {
-			dispatch({
-				type: 'INIT_LIST',
-				payload: response.data,
-			})
+			dispatch(initList(response.data))
 		})
 	}, [])
 	return (

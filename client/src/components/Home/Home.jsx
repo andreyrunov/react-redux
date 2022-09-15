@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './Home.css'
 import { useSelector, useDispatch } from 'react-redux'
+import { addList } from '../../redux/actions/list.actions'
 
 function Home() {
 	const list = useSelector((state) => state.list)
@@ -9,15 +10,7 @@ function Home() {
 
 	function handleClick() {
 		axios(`http://localhost:3001/cats`).then((response) => {
-			dispatch({
-				type: 'ADD_CATS',
-				payload: response.data,
-			})
-
-			// console.log(response.data)
-			// setList((prev) => {
-			// 	return [...response.data, prev]
-			// })
+			dispatch(addList(response.data))
 		})
 	}
 
